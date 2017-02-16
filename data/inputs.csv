@@ -1,0 +1,32 @@
+href,film_col,name_col,category,award
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Actor,0,1,Actor,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Actress,0,1,Actress,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Adapted_Screenplay,1,0,Adapted Screenplay,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Director,0,1,Director,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Original_Screenplay,0,1,Original Screenplay,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Supporting_Actor,0,1,Supporting Actor,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Supporting_Actress,0,1,Supporting Actress,Oscar
+https://en.wikipedia.org/wiki/Academy_Award_for_Best_Picture,0,0,Picture,Oscar
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Actor_in_a_Leading_Role,0,1,Actor,BAFTA
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Actor_in_a_Supporting_Role,0,1,Supporting Actor,BAFTA
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Actress_in_a_Leading_Role,0,1,Actress,BAFTA
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Actress_in_a_Supporting_Role,0,1,Supporting Actress,BAFTA
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Adapted_Screenplay,1,0,Adapted Screenplay,BAFTA
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Direction,0,1,Director,BAFTA
+https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Original_Screenplay,1,0,Original Screenplay,BAFTA
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Actor_%E2%80%93_Motion_Picture_Drama,0,2,Actor,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Actor_%E2%80%93_Motion_Picture_Musical_or_Comedy,0,2,Actor,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Actress_%E2%80%93_Motion_Picture_Comedy_or_Musical,0,2,Actress,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Actress_in_a_Motion_Picture_%E2%80%93_Drama,0,2,Actress,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Director,1,0,Director,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Motion_Picture_%E2%80%93_Drama,0,0,Picture,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Motion_Picture_%E2%80%93_Musical_or_Comedy,0,0,Picture,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Screenplay,1,0,Original Screenplay,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Screenplay,1,0,Adapted Screenplay,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Supporting_Actor_%E2%80%93_Motion_Picture,0,2,Supporting Actor,Golden Globe
+https://en.wikipedia.org/wiki/Golden_Globe_Award_for_Best_Supporting_Actress_%E2%80%93_Motion_Picture,0,2,Supporting Actress,Golden Globe
+https://en.wikipedia.org/wiki/Screen_Actors_Guild_Award_for_Outstanding_Performance_by_a_Cast_in_a_Motion_Picture,1,0,Picture,Guild
+https://en.wikipedia.org/wiki/Screen_Actors_Guild_Award_for_Outstanding_Performance_by_a_Female_Actor_in_a_Leading_Role,0,1,Actress,Guild
+https://en.wikipedia.org/wiki/Screen_Actors_Guild_Award_for_Outstanding_Performance_by_a_Female_Actor_in_a_Supporting_Role,0,1,Supporting Actress,Guild
+https://en.wikipedia.org/wiki/Screen_Actors_Guild_Award_for_Outstanding_Performance_by_a_Male_Actor_in_a_Leading_Role,0,1,Actor,Guild
+https://en.wikipedia.org/wiki/Screen_Actors_Guild_Award_for_Outstanding_Performance_by_a_Male_Actor_in_a_Supporting_Role,0,1,Supporting Actor,Guild
