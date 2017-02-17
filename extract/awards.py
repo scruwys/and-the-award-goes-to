@@ -58,7 +58,7 @@ def extract(opts, min_year = 1960):
                 continue
 
             for key, value in output.items():
-                output[key] = util.only_ascii(str(value)).strip()
+                output[key] = util.only_ascii(str(value)).strip().replace('\n', ' ')
 
             cache.append(output)
     return cache

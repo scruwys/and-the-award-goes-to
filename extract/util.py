@@ -46,3 +46,11 @@ def retrieve_clean_response(href):
         if 'rowspan' in tag.attrs.keys():
             tag.name = 'th'
     return dom_tree
+
+
+def find_first_number(string):
+    try:
+        return re.findall(r'\b\d+\b', string)[0]
+    except:
+        return ""
+
