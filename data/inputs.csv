@@ -1,4 +1,4 @@
-href,film_col,name_col,category,award
+href,name_col,film_col,category,award
 https://en.wikipedia.org/wiki/Academy_Award_for_Best_Actor,0,1,Actor,Oscar
 https://en.wikipedia.org/wiki/Academy_Award_for_Best_Actress,0,1,Actress,Oscar
 https://en.wikipedia.org/wiki/Academy_Award_for_Best_Adapted_Screenplay,1,0,Adapted Screenplay,Oscar

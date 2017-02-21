@@ -19,9 +19,10 @@ def check_headers(filename, fieldnames):
             raise Exception("Input fields must match file fields.")
 
 
-def write_to_csv(filename, results):
+def write_to_csv(filename, results, isList = True):
     """ Writes list of dictionaries to CSV file. """
-    fieldnames = results[0].keys()
+    fieldnames = results[0].keys() if isList else results.keys()
+    fieldnames = sorted(fieldnames)
 
     with open(filename, 'ab+') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -31,7 +32,10 @@ def write_to_csv(filename, results):
         else:
             check_headers(filename, fieldnames)
 
-        writer.writerows(results)
+        if isList:
+            writer.writerows(results)
+        else:
+            writer.writerow(results)
 
 
 def retrieve_clean_response(href):

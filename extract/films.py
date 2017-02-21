@@ -3,6 +3,32 @@ Extract film information (e.g., box office, critical reception, etc.) from vario
 """
 import re
 import util
+from bs4 import BeautifulSoup
+
+def find_nth(haystack, needle, n):
+    start = haystack.find(needle)
+    while start >= 0 and n > 1:
+        start = haystack.find(needle, start+len(needle))
+        n -= 1
+    return start
+
+field_names = [
+    'bom_domestic',
+    'bom_foreign',
+    'bom_worldwide',
+    'box_office',
+    'budget',
+    'country',
+    'film',
+    'imdb_score',
+    'metacritic_score',
+    'mpaa',
+    'release_date',
+    'rt_audience_score',
+    'rt_critic_score',
+    'running_time',
+    'stars_count',
+    'writers_count']
 
 def parse_rotten_tomatoes(url):
     """ Attributes: Audience Score, Critic Score """
@@ -11,8 +37,8 @@ def parse_rotten_tomatoes(url):
     critics = response.find('div', {'class': 'critic-score'})
     audience = response.find('div', {'class': 'audience-score'})
 
-    c_score = util.find_first_number(critics.text.strip())
-    a_score = util.find_first_number(audience.text.strip())
+    c_score = util.find_first_number(critics.text.strip()) if critics else ""
+    a_score = util.find_first_number(audience.text.strip()) if audience else ""
 
     return {'rt_critic_score': c_score, 'rt_audience_score': a_score}
 
@@ -21,6 +47,11 @@ def parse_imdb(url):
     """ Attributes: IMdb score, Metacritic Score, MPAA rating, Release date. """
     response = util.retrieve_clean_response(url)
     output = {}
+
+    title_bar = response.find('div', {'class': 'titleBar'})
+
+    if not title_bar:
+        return output
 
     imdb_score = response.find('span', {'itemprop': 'ratingValue'})
     output['imdb_score'] = imdb_score.text.strip() if imdb_score else ""
@@ -40,9 +71,12 @@ def parse_imdb(url):
 def parse_box_office_mojo(url):
     """ Attributes: Domestic Gross, Foreign Gross, Worldwide Gross """
     response = util.retrieve_clean_response(url)
-    output = {}
+    output = {'bom_domestic': '', 'bom_foreign': '', 'bom_worldwide': ''}
 
     mp_box_content = response.find('div', {'class': 'mp_box_content'})
+
+    if not mp_box_content:
+       return output
 
     for record in mp_box_content.find_all('tr'):
         raw_text = util.only_ascii(record.text).strip().replace('\n', ' ').lower()
@@ -50,15 +84,15 @@ def parse_box_office_mojo(url):
         title = re.search(r'[a-z]+', raw_text)
         money = re.search(r'\$[0-9,]+', raw_text)
 
-        if title and money:            
-            output[title.group(0)] = money.group(0)
+        if title and money and "bom_{0}".format(title.group(0)) in output.keys():
+            output['bom_'+title.group(0)] = util.only_ascii(money.group(0))
 
     return output
 
 
 def parse_wikipedia(response):
     """ Attributes: Budget, Running time, Number of cast members, Number of writers. """
-    output = {}
+    output = {'budget': '', 'running_time': '', 'country': '', 'box_office': ''}
 
     infobox = response.find('table', {'class': 'infobox'})
 
@@ -66,50 +100,70 @@ def parse_wikipedia(response):
         th = record.find('th')
         td = record.find('td')
 
-        if th and th.text.strip() in ['Budget', 'Running time', 'Country']:
+        if th and th.text.strip() in ['Budget', 'Running time', 'Country', 'Box office']:
             field = "_".join(th.text.strip().split()).lower()
-            output[field] = td.text.strip().split('\n')[0] if td else ""
+            output[field] = util.only_ascii(td.text.strip().split('\n')[0]) if td else ""
 
         if th and th.text.strip() in ['Written by', 'Screenplay by']:
             count = len(td.find_all('li'))
             output['writers_count'] = count if td and count > 0 else 1 # someone had to write it...
 
         if th and th.text.strip() == 'Starring':
-            output['stars_count'] = len(td.find_all('li')) if td else ""
+            count = len(td.find_all('li'))
+
+            if count == 0:
+                count = len(td.find_all('a'))
+
+            output['stars_count'] = count if count > 0 else ""
 
     return output
 
 
 def extract(opts):
-    response = util.retrieve_clean_response('https://en.wikipedia.org/wiki/The_Revenant_(2015_film)')
+    response = util.retrieve_clean_response(opts['href'])
     infobox = response.find('table', {'class': 'infobox'})
-    output = {'film_id': '', 'film': ''}
+    
+    output = {'film': opts['film']}
+
     attrs = parse_wikipedia(response)
     output.update(attrs)
 
-    for link in response.find_all('a'): #.find_all('a', {'class': 'external'}):
+    elen = str(response).find('<span class="mw-headline" id="External_links">External links</span>')
+    response = str(response)[elen:]
+    response = response[:find_nth(response, "</ul>", 3)]
+    soup = BeautifulSoup(response, "lxml")
+
+    links = set([link['href'].replace('https', 'http') 
+                    for link in soup.find_all('a') if link and 'href' in link.attrs])
+
+    for link in links:
         attrs = {}
 
-        if 'href' not in link.attrs:
-        	continue
+        if 'archive' in link:
+           continue
 
-        if 'www.rottentomatoes.com' in link['href']:
-        	print link
-            # attrs = parse_rotten_tomatoes(link['href'])
+        if 'www.rottentomatoes.com/m/' in link:
+            attrs = parse_rotten_tomatoes(link)
 
-        if 'www.imdb.com' in link['href']:
-        	print link
-            # attrs = parse_imdb(link['href'])
+        if 'www.imdb.com' in link:
+            attrs = parse_imdb(link)
 
-        if 'www.boxofficemojo.com' in link['href']:
-        	print link
-            # attrs = parse_box_office_mojo(link['href'])
+        if 'http://www.boxofficemojo.com/movies/' in link and 'page' not in link:
+            attrs = parse_box_office_mojo(link)
 
         # merge attrs with output
         output.update(attrs)
     
-    print output
+    for field in field_names:
+        if field not in output.keys():
+            output[field] = ""
+
+    for key, value in output.items():
+        output[key] = util.only_ascii(str(value)).strip().replace('\n', ' ')
+    
+    return output
 
 if __name__ == '__main__':
-    extract({})
-    # print "These are not the droids you're looking for..."
+    # output = extract({'href': 'https://en.wikipedia.org/wiki/The_Last_King_of_Scotland_(film)', 'film': ''})
+    # print output
+    print "These are not the droids you are looking for..."
