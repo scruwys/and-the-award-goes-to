@@ -5,13 +5,6 @@ import re
 import util
 from bs4 import BeautifulSoup
 
-def find_nth(haystack, needle, n):
-    start = haystack.find(needle)
-    while start >= 0 and n > 1:
-        start = haystack.find(needle, start+len(needle))
-        n -= 1
-    return start
-
 field_names = [
     'bom_domestic',
     'bom_foreign',
@@ -30,17 +23,24 @@ field_names = [
     'stars_count',
     'writers_count']
 
-def parse_rotten_tomatoes(url):
+
+def parse_rotten_tomatoes(name, year):
     """ Attributes: Audience Score, Critic Score """
-    response = util.retrieve_clean_response(url)
+    response = util.retrieve_clean_response("https://www.bing.com/search?q={0} rotten tomatoes {1}".format(name, year))
+    l_header = response.find('li', {'class': 'b_algo'})
 
-    critics = response.find('div', {'class': 'critic-score'})
-    audience = response.find('div', {'class': 'audience-score'})
+    if l_header:
+        link = l_header.find('a')
 
-    c_score = util.find_first_number(critics.text.strip()) if critics else ""
-    a_score = util.find_first_number(audience.text.strip()) if audience else ""
+        if link:
+            response = util.retrieve_clean_response(link['href'])
+            critics  = response.find('div', {'class': 'critic-score'})
+            audience = response.find('div', {'class': 'audience-score'})
 
-    return {'rt_critic_score': c_score, 'rt_audience_score': a_score}
+            c_score = util.find_first_number(critics.text.strip()) if critics else ""
+            a_score = util.find_first_number(audience.text.strip()) if audience else ""
+
+            return {'rt_critic_score': c_score, 'rt_audience_score': a_score}
 
 
 def parse_imdb(url):
@@ -123,15 +123,13 @@ def extract(opts):
     response = util.retrieve_clean_response(opts['href'])
     infobox = response.find('table', {'class': 'infobox'})
     
-    output = {'film': opts['film']}
+    output = {'film': opts['film'], 'year': opts['year']}
 
     attrs = parse_wikipedia(response)
     output.update(attrs)
 
     elen = str(response).find('<span class="mw-headline" id="External_links">External links</span>')
-    response = str(response)[elen:]
-    response = response[:find_nth(response, "</ul>", 3)]
-    soup = BeautifulSoup(response, "lxml")
+    soup = BeautifulSoup(str(response)[elen:][:util.find_nth(response, "</ul>", 3)], "lxml")
 
     links = set([link['href'].replace('https', 'http') 
                     for link in soup.find_all('a') if link and 'href' in link.attrs])
@@ -142,9 +140,6 @@ def extract(opts):
         if 'archive' in link:
            continue
 
-        if 'www.rottentomatoes.com/m/' in link:
-            attrs = parse_rotten_tomatoes(link)
-
         if 'www.imdb.com' in link:
             attrs = parse_imdb(link)
 
@@ -154,6 +149,15 @@ def extract(opts):
         # merge attrs with output
         output.update(attrs)
     
+    ### TBD ####
+    attrs = parse_rotten_tomatoes(opts['film'], opts['year'])
+
+    if '' in attrs.values():
+        attrs = parse_rotten_tomatoes(opts['film'], "")
+
+    output.update(attrs)
+    
+    ### Clean ###
     for field in field_names:
         if field not in output.keys():
             output[field] = ""
@@ -164,6 +168,4 @@ def extract(opts):
     return output
 
 if __name__ == '__main__':
-    # output = extract({'href': 'https://en.wikipedia.org/wiki/The_Last_King_of_Scotland_(film)', 'film': ''})
-    # print output
     print "These are not the droids you are looking for..."

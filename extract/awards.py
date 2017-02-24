@@ -1,7 +1,7 @@
 import re
 import util
 
-def check_for_winner(record, colors=['b0c4de', 'faeb86']):
+def check_for_winner(record, colors=['b0c4de', 'faeb86', 'd3d3d3', 'ccc']):
     record = record if 'style' in record.attrs else record.find('td')
 
     if record and 'style' in record.attrs:
@@ -24,17 +24,15 @@ def extract(opts, min_year = 1960, max_year = 2016):
 
     for table in wikitables:
         records = table.find_all('tr')
-        film_year = determine_film_year(table.text[0:50]) # for Oscar best picture year
-
-        toggle = False
+        film_year = determine_film_year(table.text[0:25]) # for Oscar best picture year
 
         for num, record in enumerate(records):
             if num == 0: continue; # skip headers
         	
             ### Determine film year ###
-            check_for_year = determine_film_year(record.text[0:50])
+            check_for_year = determine_film_year(record.text[0:25])
 
-            if check_for_year:
+            if check_for_year: # failing for space odyssey
                 film_year = check_for_year
 
             if not film_year.isdigit():
@@ -50,29 +48,21 @@ def extract(opts, min_year = 1960, max_year = 2016):
             fields = record.find_all('td')
             header = record.find('th')
 
-            if header and 'rowspan' in header.attrs.keys() and int(header.attrs['rowspan']) > 2:
+            if 'British Academy Film Awards' in str(record):
                 continue
 
             try:
+                name_obj = fields[int(opts['name_col'])]
+                name = name_obj.find('a')
                 film = fields[int(opts['film_col'])].find('a')
-                name = fields[int(opts['name_col'])].find('a')
 
-                if header:
-                    if 'rowspan' in record.findChildren()[0].attrs.keys():
-                        name = n_last = header.find('a')
-                        film = f_last = fields[int(opts['name_col'])].find('a')
-                    else:
-                        film = f_last = header.find('a')
-
-                if not film:
-                    film = f_last
-                
-                output['name'] = name.text.encode('utf-8')
-                output['film'] = film.text.encode('utf-8')
+                output['name'] = name.text.encode('utf-8') if name else name_obj.text.encode('utf-8')
+                output['film'] = film.text.encode('utf-8').replace('&', 'and')
                 output['href'] = film['href']
             except:
+                # STILL HAVE ISSUE WITH ROWSPAN
             	continue
-
+ 
             ### Get rid of some rogue records ###
             if str(film_year) == output['name']:
                 continue
@@ -86,5 +76,4 @@ def extract(opts, min_year = 1960, max_year = 2016):
     return cache
 
 if __name__ == '__main__':
-    # extract({'href': 'https://en.wikipedia.org/wiki/BAFTA_Award_for_Best_Actress_in_a_Leading_Role', 'film_col': '1', 'name_col': '0', 'category': '', 'award': ''})
     print "These aren't the droids your looking for..."

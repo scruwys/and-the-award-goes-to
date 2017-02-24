@@ -58,3 +58,11 @@ def find_first_number(string):
     except:
         return ""
 
+
+def find_nth(haystack, needle, n):
+    """ TBD. """
+    start = haystack.find(needle)
+    while start >= 0 and n > 1:
+        start = haystack.find(needle, start+len(needle))
+        n -= 1
+    return start
