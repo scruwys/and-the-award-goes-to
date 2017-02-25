@@ -37,9 +37,9 @@ My hope is to eventually implement several different algorithms and compare the 
 
 #### Decisions, Decisions...
 
-TODO: Provide a more in-depth description of decision trees.
+This project uses the scikit-learn implementation of a [decision tree classifier[(http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html). The scikit-learn [documentation](http://scikit-learn.org/stable/modules/tree.html) provides a decent explanation of decision tree classification.
 
-The information extracted goes as far back as 1960. However, due to inconsistencies in the data and various other constraints, the input data is limited to films released from 1980 to present. This results in roughly 1450 observations across all considered award categories. After splitting the data into training (60%) and test (40%) partitions, the tested "accuracy" of the model hovered around 80% for a leaf size of 1. Not something to bet the farm on, but [I've seen worse](http://money.cnn.com/2016/11/01/news/economy/hillary-clinton-win-forecast-moodys-analytics/) :-/
+The extracted nomination data goes as far back as 1960. However, due to inconsistencies in the data and various other constraints, the input data is limited to films released from 1980 to present. This results in roughly 1450 observations across all considered award categories. After splitting the data into training (60%) and test (40%) partitions, the tested "accuracy" of the model hovered around 80% for a leaf size of 1. Not something to bet the farm on, but [I've seen worse](http://money.cnn.com/2016/11/01/news/economy/hillary-clinton-win-forecast-moodys-analytics/). :confounded:
 
 Once the classifier had been implemented, I ran into an interesting obstacle. If I were to just run the model once, it would sometimes label multiple nominees as winners. But, as we all know, [there can be only one](https://www.youtube.com/watch?v=sqcLjcSloXs).
 
@@ -53,6 +53,10 @@ This obstacle was overcome using a technique called [bootstrap aggregation](http
 The key of the dictionary is the nominee name. The value of the dictionary represents the number of times that nominee has been predicted to win based on the multiple iterations. Once the cycle has completed, the nominee with the most "wins" is declared the winner.
 
 *Note: This is arguably not the most ideal methodology, but was sufficient for this project. Any alternate methods or suggestions would be very much appreciated!*
+
+The decision tree classifier can be ran using the following command:
+
+``` python predict/decision_tree.py --award "Adapted Screenplay" --year 2016 ```
 
 ## The Results
 

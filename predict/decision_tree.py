@@ -5,10 +5,11 @@ from sklearn import tree
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--award')
+parser.add_argument('--year')
 args = parser.parse_args()
 
 if __name__ == '__main__':
-    past, future = util.load_data(args.award, 1990, 2016)
+    past, future = util.load_data(args.award, 1990, int(args.year))
     train_cutoff = int(len(past) * 0.60)
 
     accuracy = []
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     for film in films_CY:
       guesses[film] = 0.0
 
-    for _ in range(0, 301):
+    for _ in range(0, 501):
 
         np.random.shuffle(past)
 

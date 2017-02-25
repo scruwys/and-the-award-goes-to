@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 relevant_columns = [
@@ -25,7 +26,7 @@ relevant_columns = [
 
 
 def load_data(award, min_year, prediction_year):
-    df = pd.read_csv('data/cleaned.csv')
+    df = pd.read_csv('data/prepared.csv')
 
     past = df[(df['category'] == award) & (df['year'] < prediction_year) & (df['year'] > min_year)][relevant_columns]
     curr = df[(df['category'] == award) & (df['year'] == prediction_year)][['name']+relevant_columns]
@@ -53,7 +54,7 @@ def print_predictions_for(guesses, title):
 
 
 def test_for_accuracy(data, classifier, iterations = 200):
-    accuracy = []
+    cache = []
     train_cutoff = int(len(data) * 0.60)
 
     for i in range(0, iterations + 1):
@@ -70,6 +71,6 @@ def test_for_accuracy(data, classifier, iterations = 200):
         classifier = classifier.fit(X_train, Y_train)
 
         Y_predict = classifier.predict(X_test)
-        accuracy.append(util.accuracy(Y_predict, Y_test))
+        cache.append(accuracy(Y_predict, Y_test))
 
-    return round(sum(accuracy) / len(accuracy), 4) * 100
+    return round(sum(cache) / len(cache), 4) * 100
