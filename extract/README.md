@@ -4,7 +4,7 @@ The dataset used in this project was scraped from various publicly available web
 
 See below for a brief description of the extraction scripts and outputted data sets.
 
-## Nominations <small> ([nominations.py](https://github.com/scruwys/and-the-award-goes-to/blob/master/extract/films.py))</small>
+## Nominations <small> ([nominations.py](https://github.com/scruwys/and-the-award-goes-to/blob/master/extract/nominations.py))</small>
 The first step when attempting predict Oscar-winning films is to obtain a list of Oscar-nominated films. Wikipedia provides a separate page for each Academy Award category and lists both the nominees and winners in a (more or less) straightforward, tabular format. 
 
 One good indicator of "Oscar success" are the other awards presented in the weeks preceding the Academy Awards. For this project, this includes the Golden Globes, the British Academy Film Awards ("BAFTA"), and the various guild awards, such as the Screen Actors Guild. Part of this project is to test the correlation between winning these awards and an Oscar. Wikipedia provides similar pages for these awards, so we can pull those as well to work them into our model.
@@ -57,6 +57,6 @@ The results of this extraction can be found here: [films.csv](https://github.com
 
 ## Prepared <small> ([notebooks/prepare_data.ipynb](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/prepare_data.ipynb))</small>
 
-The film and nomination datasets then needed to be combined and properly formatted to be either be ingested by our classifier(s). This is documented in this [Jupyter notebook](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/prepare_data.ipynb).
+The film and nomination datasets then needed to be combined and properly formatted to be properly ingested by our decision tree classifier. This is documented in this [Jupyter notebook](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/prepare_data.ipynb).
 
 The results of this process can be found here: [prepared.csv](https://github.com/scruwys/and-the-award-goes-to/blob/master/data/prepared.csv).

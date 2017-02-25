@@ -71,10 +71,10 @@ Here are my picks for the 89th Academy Awards using the [decision tree classifie
 
 ## Future Ideas
 
-This is just a scratchpad for the future. Feel free to contribute.
+This is just a scratchpad for the future. Feel free to contribute or make suggestions.
 
 **Sentiment analysis:** Use the Twitter API to see what movies people are talking about. Inspired in part by [this repository](https://github.com/peacing/OscarsPredictor).
 
-**Additional features:** Critic's Choice Awards, film festival awards, movie genre, past award wins.
+**Additional features:** Critic's Choice Awards, film festival awards, movie genre, theater distribution, past award wins.
 
 **Additional categories:** Documentary Film, Animated Feature Film.

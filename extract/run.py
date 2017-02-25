@@ -2,7 +2,7 @@ import os
 import csv
 import util
 import films
-import awards
+import nominations as noms
 
 if __name__ == '__main__':
     # Step 1: Extract award-nominated films from Wikipedia
@@ -10,7 +10,7 @@ if __name__ == '__main__':
         reader = csv.DictReader(inputs)
 
         for row in reader:
-            util.write_to_csv('../data/nominations.csv', awards.extract(row, min_year = 1960, max_year = 2016))
+            util.write_to_csv('../data/nominations.csv', noms.extract(row, min_year = 1960, max_year = 2016))
 
     print("Nominations extracted.")
 
