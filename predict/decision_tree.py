@@ -1,61 +1,42 @@
-import sys
-import pandas
+import util
+import argparse
 import numpy as np
 from sklearn import tree
 
-columns = [
- 'Oscar',
- 'BAFTA',
- 'Golden Globe',
- 'Guild',
- 'q1_release',
- 'q2_release',
- 'q3_release',
- 'q4_release',
- 'running_time',
- 'G',
- 'PG',
- 'PG13',
- 'R',
- 'produced_USA',
- 'imdb_score',
- 'rt_audience_score',
- 'rt_critic_score',
- 'stars_count',
- 'writers_count',
- 'box_office'
-]
+parser = argparse.ArgumentParser()
+parser.add_argument('--award')
+args = parser.parse_args()
 
-df = pandas.read_csv('data/cleaned.csv')
-data1 = df[(df['category'] == 'Actor') & (df['year'] < 2016)][columns]
-# data2 = df[(df['category'] == sys.argv[0]) & (df['year'] == 2016)][['name'] + columns]
+if __name__ == '__main__':
+    past, future = util.load_data(args.award, 2016)
+    train_cutoff = int(len(past) * 0.60)
 
-accuracy = []
+    accuracy = []
 
-data = data1.values.tolist()
-train_cutoff = int(len(data) * 0.60)
+    film_CY = [ i[0] for i in future ]
+    feat_CY = [ i[2:] for i in future ]
 
-for i in range(0, 501):
-    np.random.shuffle(data)
+    guesses = {}
 
-    X = [ i[1:] for i in data ]
-    Y = [ i[0]  for i in data ]
+    for film in film_CY:
+      guesses[film] = 0.0
 
-    X_train = X[:train_cutoff]
-    Y_train = Y[:train_cutoff]
-    X_test = X[train_cutoff:]
-    Y_test = Y[train_cutoff:]
+    for _ in range(0, 301):
 
-    classifier = tree.DecisionTreeClassifier()
-    classifier = classifier.fit(X_train, Y_train)
+        np.random.shuffle(past)
 
-    Y_predict = classifier.predict(X_test)
+        X = [ i[1:] for i in past ]
+        Y = [ i[0]  for i in past ]
 
-    equal = 0
-    for i in xrange(len(Y_predict)):
-        if Y_predict[i] == Y_test[i]:
-            equal += 1
+        X_train = X[:train_cutoff]
+        Y_train = Y[:train_cutoff]
+        X_test  = X[train_cutoff:]
+        Y_test  = Y[train_cutoff:]
 
-    accuracy.append((float(equal)/len(Y_predict)))
+        classifier = tree.DecisionTreeClassifier()
+        classifier = classifier.fit(X_train, Y_train)
 
-print round(sum(accuracy) / len(accuracy), 4) * 100
+        for idx, film in enumerate(film_CY):      
+          guesses[film] += float(classifier.predict([feat_CY[idx]])[0])
+
+    util.predictions_for(guesses, "Decision Trees - Predictions for {0}:".format(args.award))
