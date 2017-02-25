@@ -8,17 +8,17 @@ parser.add_argument('--award')
 args = parser.parse_args()
 
 if __name__ == '__main__':
-    past, future = util.load_data(args.award, 2016)
+    past, future = util.load_data(args.award, 1990, 2016)
     train_cutoff = int(len(past) * 0.60)
 
     accuracy = []
 
-    film_CY = [ i[0] for i in future ]
-    feat_CY = [ i[2:] for i in future ]
+    films_CY = [ i[0] for i in future ]
+    feats_CY = [ i[2:] for i in future ]
 
     guesses = {}
 
-    for film in film_CY:
+    for film in films_CY:
       guesses[film] = 0.0
 
     for _ in range(0, 301):
@@ -36,7 +36,10 @@ if __name__ == '__main__':
         classifier = tree.DecisionTreeClassifier()
         classifier = classifier.fit(X_train, Y_train)
 
-        for idx, film in enumerate(film_CY):      
-          guesses[film] += float(classifier.predict([feat_CY[idx]])[0])
+        for idx, film in enumerate(films_CY):      
+          guesses[film] += float(classifier.predict([feats_CY[idx]])[0])
 
-    util.predictions_for(guesses, "Decision Trees - Predictions for {0}:".format(args.award))
+    util.print_predictions_for(guesses, "Decision Trees - Predictions for {0}:".format(args.award))
+    
+    # Declare the highest percentage the winner.
+    print "\nAnd the award goes to... {0} !!!".format(max(guesses, key=guesses.get))

@@ -24,13 +24,13 @@ relevant_columns = [
 ]
 
 
-def load_data(award, year):
+def load_data(award, min_year, prediction_year):
     df = pd.read_csv('data/cleaned.csv')
 
-    data1 = df[(df['category'] == award) & (df['year']  < year)][relevant_columns]
-    data2 = df[(df['category'] == award) & (df['year'] == year)][['name']+relevant_columns]
+    past = df[(df['category'] == award) & (df['year'] < prediction_year) & (df['year'] > min_year)][relevant_columns]
+    curr = df[(df['category'] == award) & (df['year'] == prediction_year)][['name']+relevant_columns]
 
-    return data1.values.tolist(), data2.values.tolist()
+    return past.values.tolist(), curr.values.tolist()
 
 
 def accuracy(Y_predict, Y_test):
@@ -42,7 +42,7 @@ def accuracy(Y_predict, Y_test):
     return float(equal)/len(Y_predict)
 
 
-def predictions_for(guesses, title):
+def print_predictions_for(guesses, title):
     total = sum([v for k, v in guesses.items()])
 
     print
