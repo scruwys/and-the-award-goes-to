@@ -39,7 +39,7 @@ My hope is to eventually implement several different algorithms and compare the 
 
 TODO: Provide a more in-depth description of decision trees.
 
-The information extracted goes as far back as 1960. However, due to inconsistencies in the data and various other constraints, the input data is limited to films released from 1980 to present. This results in roughly 1450 observations across all considered award categories.
+The information extracted goes as far back as 1960. However, due to inconsistencies in the data and various other constraints, the input data is limited to films released from 1980 to present. This results in roughly 1450 observations across all considered award categories. After splitting the data into training (60%) and test (40%) partitions, the tested "accuracy" of the model hovered around 80% for a leaf size of 1. Not something to bet the farm on, but [I've seen worse](http://money.cnn.com/2016/11/01/news/economy/hillary-clinton-win-forecast-moodys-analytics/) :-/
 
 Once the classifier had been implemented, I ran into an interesting obstacle. If I were to just run the model once, it would sometimes label multiple nominees as winners. But, as we all know, [there can be only one](https://www.youtube.com/watch?v=sqcLjcSloXs).
 
@@ -56,7 +56,7 @@ The key of the dictionary is the nominee name. The value of the dictionary repre
 
 ## The Results
 
-Here are my picks for the 89th Academy Awards.
+Here are my picks for the 89th Academy Awards using the [decision tree classifier](https://github.com/scruwys/and-the-award-goes-to/blob/master/predict/decision_tree.py).
 
 | Award    | Nominee           | Film  |
 | -------- |-------------------| -----|
