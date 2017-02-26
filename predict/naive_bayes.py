@@ -1,5 +1,5 @@
 """
-This predicts Oscar wins using a Support Vector Machine classifier.
+This predicts Oscar wins using a Naive Bayes classifier.
 """
 import util
 import argparse

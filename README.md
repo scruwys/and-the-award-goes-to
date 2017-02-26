@@ -2,7 +2,7 @@
 
 What factors drive success in the movie award circuit? Let's use some supervised classification methods to predict who will win that Oscar gold. 
 
-This project is meant to be a fun way to practice and learn some simple techniques typically used in predictive modeling.
+This project is meant to be a fun way to practice and learn some simple techniques typically used in predictive modeling. [Click here to skip to the results](https://github.com/scruwys/and-the-award-goes-to#the-results).
 
 ## Dataset
 
@@ -21,11 +21,9 @@ The following award categories were considered:
 
 Prior to building the model, the raw extracted data was transformed into a workable format. For more details on that process, please refer to this [Jupyter notebook](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/prepare_data.ipynb).
 
-## Descriptive Analysis
+## Analysis of Oscar-nominated Films
 
-TODO: Provide a more in-depth analysis of dataset.
-
-For more insights and analyses, check out the [Jupyter notebook](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/analysis.ipynb).
+This [Jupyter notebook](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/analysis.ipynb) contains a preliminary exploratory analysis of the extracted data. Will add more to this over the next few weeks.
 
 ## Learning Algorithms Used
 

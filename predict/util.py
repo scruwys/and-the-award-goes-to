@@ -27,7 +27,7 @@ relevant_columns = [
 
 def load_data(award, min_year, prediction_year):
     df = pd.read_csv('data/prepared.csv')
-
+    
     past = df[(df['category'] == award) & (df['year'] < prediction_year) & (df['year'] > min_year)][relevant_columns]
     curr = df[(df['category'] == award) & (df['year'] == prediction_year)][['name']+relevant_columns]
 

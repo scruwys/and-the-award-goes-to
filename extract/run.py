@@ -1,3 +1,6 @@
+"""
+Script Runner: Executes nominations.py and films.py to extract all relevant information.
+"""
 import os
 import csv
 import util

@@ -1,3 +1,6 @@
+"""
+Extracts award-nominated films from Wikipedia
+"""
 import re
 import util
 

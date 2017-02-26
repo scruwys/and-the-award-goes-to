@@ -1,3 +1,6 @@
+"""
+This predicts Oscar wins using a Decision Tree classifier.
+"""
 import util
 import argparse
 import numpy as np
