@@ -37,7 +37,7 @@ My hope is to eventually implement several different algorithms and compare the 
 
 #### Decisions, Decisions...
 
-This project uses the scikit-learn implementation of a [decision tree classifier[(http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html). The scikit-learn [documentation](http://scikit-learn.org/stable/modules/tree.html) provides a decent explanation of decision tree classification.
+This project uses the scikit-learn implementation of a [decision tree classifier](http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html). The scikit-learn [documentation](http://scikit-learn.org/stable/modules/tree.html) provides a decent explanation of decision tree classification.
 
 The extracted nomination data goes as far back as 1960. However, due to inconsistencies in the data and various other constraints, the input data is limited to films released from 1980 to present. This results in roughly 1450 observations across all considered award categories. After splitting the data into training (60%) and test (40%) partitions, the tested "accuracy" of the model hovered around 80% for a leaf size of 1. Not something to bet the farm on, but [I've seen worse](http://money.cnn.com/2016/11/01/news/economy/hillary-clinton-win-forecast-moodys-analytics/). :confounded:
 
