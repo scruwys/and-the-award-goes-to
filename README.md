@@ -54,7 +54,7 @@ The key of the dictionary is the nominee name. The value of the dictionary repre
 
 *Note: This is arguably not the most ideal methodology, but was sufficient for this project. Any alternate methods or suggestions would be very much appreciated!*
 
-The decision tree classifier can be ran using the following command:
+The decision tree classifier can be run using the following command:
 
 ``` python predict/decision_tree.py --award "Adapted Screenplay" --year 2016 ```
 
