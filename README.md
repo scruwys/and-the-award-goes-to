@@ -2,7 +2,9 @@
 
 What factors drive success in the movie award circuit? Let's use some supervised classification methods to predict who will win that Oscar gold. 
 
-This project is meant to be a fun way to practice and learn some simple techniques typically used in data analysis and predictive modeling. [Click here to skip to the results](https://github.com/scruwys/and-the-award-goes-to#the-results). Constructive commentary and suggestions are appreciated. 
+This project is meant to be a fun way to practice and learn some simple techniques typically used in data analysis and predictive modeling. Constructive commentary and suggestions are appreciated. 
+
+[Click here to skip to the results](https://github.com/scruwys/and-the-award-goes-to#the-results).
 
 ## Dataset
 
