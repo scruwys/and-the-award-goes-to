@@ -62,16 +62,18 @@ The decision tree classifier can be run using the following command:
 
 Here are my picks for the 89th Academy Awards using the [decision tree classifier](https://github.com/scruwys/and-the-award-goes-to/blob/master/predict/decision_tree.py).
 
-| Award    | Nominee           | Film  |
-| -------- |-------------------| -----|
-| Picture  | La La Land        | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) |
-| Director | Damien Chazelle   | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) |
-| Actor    | Denzel Washington | [Fences](https://www.rottentomatoes.com/m/fences_2016/) |
-| Actress  | Emma Stone        | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) |
-| Supporting Actor    | Mahershala Ali  | [Moonlight](https://www.rottentomatoes.com/m/moonlight_2016/) |
-| Supporting Actress  | Viola Davis     | [Fences](https://www.rottentomatoes.com/m/fences_2016/) |
-| Original Screenplay | Damien Chazelle | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) |
-| Adapted Screenplay  | Allison Schroeder & Theodore Melfi | [Hidden Figures](https://www.rottentomatoes.com/m/hidden_figures/) |
+| Award    | Nominee           | Film  | Winner? |
+| -------- |-------------------| -----|:-----:|
+| Picture  | La La Land        | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) | :x: |
+| Director | Damien Chazelle   | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) | :heavy_check_mark: |
+| Actor    | Denzel Washington | [Fences](https://www.rottentomatoes.com/m/fences_2016/) | :x: |
+| Actress  | Emma Stone        | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) | :heavy_check_mark: |
+| Supporting Actor    | Mahershala Ali  | [Moonlight](https://www.rottentomatoes.com/m/moonlight_2016/) | :heavy_check_mark: |
+| Supporting Actress  | Viola Davis     | [Fences](https://www.rottentomatoes.com/m/fences_2016/) | :heavy_check_mark: |
+| Original Screenplay | Damien Chazelle | [La La Land](https://www.rottentomatoes.com/m/la_la_land/) | :x: |
+| Adapted Screenplay  | Allison Schroeder & Theodore Melfi | [Hidden Figures](https://www.rottentomatoes.com/m/hidden_figures/) | :x: |
+
+*UPDATE on February 27*: Hmmm. It looks like the model could use some improvement. Will need to look into adding some more features into the data. Good thing we have a year to improve!
 
 ## Future Ideas
 
