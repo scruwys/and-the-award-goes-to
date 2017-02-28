@@ -25,7 +25,7 @@ This output can be found here: [nominations.csv](https://github.com/scruwys/and-
 
 ## Films <small> ([films.py](https://github.com/scruwys/and-the-award-goes-to/blob/master/extract/films.py))</small>
 
-Of course, there are other characteristics of a film that can contribute to an Oscar win. One common attribute correlated with a win, for example, is seasonality. More often than not a Oscar winner is released less than 4 months before the award ceremony in February.
+Of course, there are other characteristics of a film that can contribute to an Oscar win. One common attribute correlated with a win, for example, is seasonality. More often than not an Oscar winner is released less than 4 months before the award ceremony in February.
 
 I was curious to see what other attributes signal a win. Does critical reception matter more than audience reception? What about how profitable a film is? (fyi - this is covered in the [analysis](https://github.com/scruwys/and-the-award-goes-to/blob/master/notebooks/analysis.ipynb) notebook)
  
